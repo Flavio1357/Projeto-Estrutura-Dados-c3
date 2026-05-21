@@ -17,7 +17,7 @@ typedef struct tabelaHash{
 
 int valorString(TabelaHash th, char* senha);
 void criaHash();
-void insereHash();
+int insereHash();
 char buscaHash();
 char removeHash();
 void liberaHash();
@@ -44,8 +44,30 @@ void criaHash(){
     
 }
 
-void insereHash(){
-    
+int insereHash(TabelaHash th, char *nome, char *senha){
+
+    if(th == NULL){
+        return 1;
+    }
+
+    Usuario *user = malloc(sizeof(struct Usuario));
+
+    if(user == NULL){
+        return 1;
+    }
+
+    strcpy(user->username, nome);
+
+    int pos = valorString(th, senha);
+
+    user->hashSenha = pos;
+
+    user->prox = th->itens[pos];
+    th->itens[pos] = user;
+
+    th->qtd++;
+
+    return 0;
 }
 
 char buscaHash(){
