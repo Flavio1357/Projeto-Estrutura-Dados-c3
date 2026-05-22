@@ -20,8 +20,8 @@ TabelaHash criaHash(int size);
 int insereHash(TabelaHash th, char *nome, char *senha);
 int buscaHash(TabelaHash th, char* user, char* senha);
 char removeHash();
-void liberaHash();
-void imprimeHash();
+void liberaHash(TabelaHash th);
+void imprimeHash(TabelaHash th);
 
 int main(){
 
@@ -107,8 +107,21 @@ char removeHash(){
 
 }
 
-void liberaHash(){
+void liberaHash(TabelaHash th){
 
+    if(th == NULL)
+        return;
+    
+    for(int i = 0; i < th->size; i++){
+        Usuario *aux = th->itens[i];
+        while(aux != NULL){
+            Usuario *temp = aux;
+            aux = aux->prox;
+            free(temp);
+        }
+    }
+    free(th->itens);
+    free(th);
 }
 
 void imprimeHash(){
