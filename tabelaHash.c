@@ -124,6 +124,23 @@ void liberaHash(TabelaHash th){
     free(th);
 }
 
-void imprimeHash(){
+void imprimeHash(TabelaHash th){
+
+    if(th == NULL){
+        printf("Não existe tabela!\n");
+        return;
+    }
+    
+    for(int i = 0; i < th->size; i++){
+        Usuario *aux = th->itens[i];
+        printf("[%d]: ", i);
+        
+        while(aux != NULL){
+            printf("(%s | %d) -> ", aux->username, aux->hashSenha);
+            aux = aux->prox;
+        }
+
+        printf("NULL\n")
+    }
 
 }
