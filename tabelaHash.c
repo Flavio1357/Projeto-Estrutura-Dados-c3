@@ -18,7 +18,7 @@ typedef struct tabelaHash{
 int valorString(TabelaHash th, char* senha);
 TabelaHash criaHash(int size);
 int insereHash(TabelaHash th, char *nome, char *senha);
-char buscaHash();
+int buscaHash(TabelaHash th, char* user, char* senha);
 char removeHash();
 void liberaHash();
 void imprimeHash();
@@ -81,8 +81,26 @@ int insereHash(TabelaHash th, char *nome, char *senha){
     return 0;
 }
 
-char buscaHash(){
+int buscaHash(TabelaHash th, char* user, char* senha){
+    if(th == NULL || th->itens == NULL)
+        return 1;
+
+    if(user == NULL || senha == NULL)
+        return 1;
+
+    int hashSenhaDigitada = valorString(th, senha);
+    int indice = valorString(th, user);
     
+    Usuario *atual = th->itens[indice];
+
+    while(atual != NULL){
+        if(strcmp(atual->username, user) == 0 && atual->hashSenha == hashSenhaDigitada)
+            return 0;
+        
+        atual = atual->prox;
+    }
+
+    return 1;
 }
 
 char removeHash(){
