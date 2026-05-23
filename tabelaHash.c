@@ -140,7 +140,7 @@ void imprimeHash(TabelaHash th){
             aux = aux->prox;
         }
 
-        printf("NULL\n")
+        printf("NULL\n");
     }
 
 }
