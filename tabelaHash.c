@@ -19,7 +19,7 @@ int valorString(TabelaHash th, char* senha);
 TabelaHash criaHash(int size);
 int insereHash(TabelaHash th, char *nome, char *senha);
 int buscaHash(TabelaHash th, char* user, char* senha);
-char removeHash();
+int removeHash(TabelaHash th, char* user);
 void liberaHash(TabelaHash th);
 void imprimeHash(TabelaHash th);
 
@@ -56,7 +56,6 @@ TabelaHash criaHash(int size){
 }
 
 int insereHash(TabelaHash th, char *nome, char *senha){
-
     if(th == NULL){
         return 1;
     }
@@ -68,10 +67,9 @@ int insereHash(TabelaHash th, char *nome, char *senha){
     }
 
     strcpy(user->username, nome);
+    strcpy(user->senha, senha);
 
-    int pos = valorString(th, senha);
-
-    user->hashSenha = pos;
+    int pos = valorString(th, nome);
 
     user->prox = th->itens[pos];
     th->itens[pos] = user;
@@ -103,8 +101,34 @@ int buscaHash(TabelaHash th, char* user, char* senha){
     return 1;
 }
 
-char removeHash(){
+int removeHash(TabelaHash th, char *user){
+    if(th == NULL){
+        return 1;
+    }
 
+    int indice = valorString(th, user);
+
+    Usuario *aux = th->itens[indice];
+    Usuario *ant = NULL;
+
+    while(aux != NULL){
+        if(strcmp(aux->username, user) == 0){
+
+            if(ant == NULL){
+                th->itens[indice] = aux->prox;
+            } else{
+                ant->prox = aux->prox;
+            }
+
+            free(aux);
+
+            th->qtd--;
+            return 0;
+        }
+        ant = aux;
+        aux = aux->prox;
+    }
+    return 1;
 }
 
 void liberaHash(TabelaHash th){
