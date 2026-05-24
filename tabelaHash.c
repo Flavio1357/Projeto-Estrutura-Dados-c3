@@ -77,7 +77,8 @@ int insereHash(TabelaHash th, char *nome, char *senha){
     th->qtd++;
 
     return 0;
-}
+
+} 
 
 int buscaHash(TabelaHash th, char* user, char* senha){
     if(th == NULL || th->itens == NULL)
@@ -129,6 +130,7 @@ int removeHash(TabelaHash th, char *user){
         aux = aux->prox;
     }
     return 1;
+    
 }
 
 void liberaHash(TabelaHash th){
