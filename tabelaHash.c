@@ -24,7 +24,74 @@ void liberaHash(TabelaHash th);
 void imprimeHash(TabelaHash th);
 
 int main(){
+    int size;
+    printf("Insira o tamanho da Tabela Hash: ");
+    scanf("%d", &size);
 
+    TabelaHash th = criaHash(size);
+
+    int opcao = -1;
+    char nome[50];
+    char senha[50];
+
+    while(opcao != 0){
+        printf("\n--- MENU ---\n");
+        printf("1 - Inserir usuario\n");
+        printf("2 - Buscar usuario (login)\n");
+        printf("3 - Remover usuario\n");
+        printf("4 - Imprimir tabela\n");
+        printf("0 - Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+
+        if(opcao == 1){
+            printf("Username: ");
+            scanf("%s", nome);
+            printf("Senha: ");
+            scanf("%s", senha);
+
+            if(insereHash(th, nome, senha) == 0)
+                printf("Inserido com sucesso!\n");
+            else
+                printf("Erro ao inserir.\n");
+        }
+
+        else if(opcao == 2){
+            printf("Username: ");
+            scanf("%s", nome);
+            printf("Senha: ");
+            scanf("%s", senha);
+
+            if(buscaHash(th, nome, senha) == 0)
+                printf("Login valido!\n");
+            else
+                printf("Login invalido!\n");
+        }
+
+        else if(opcao == 3){
+            printf("Username: ");
+            scanf("%s", nome);
+            
+            if(removeHash(th, nome) == 0)
+                printf("Removido com sucesso!\n");
+            else
+                printf("Erro ao remover.\n");
+        }
+
+        else if(opcao == 4){
+            imprimeHash(th);
+        }
+
+        else if(opcao == 0){
+            printf("Encerrando...\n");
+        }
+
+        else{
+            printf("Opcao invalida!\n");
+        }
+    }
+
+    liberaHash(th);
     return 0;
 }
 
@@ -67,9 +134,9 @@ int insereHash(TabelaHash th, char *nome, char *senha){
     }
 
     strcpy(user->username, nome);
-    strcpy(user->senha, senha);
 
     int pos = valorString(th, nome);
+    user->hashSenha = valorString(th, senha);
 
     user->prox = th->itens[pos];
     th->itens[pos] = user;
