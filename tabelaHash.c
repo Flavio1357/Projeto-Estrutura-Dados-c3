@@ -229,7 +229,7 @@ void imprimeHash(TabelaHash th){
         printf("[%d]: ", i);
         
         while(aux != NULL){
-            printf("(%s | %d) -> ", aux->username, aux->hashSenha);
+            printf("(%s | %d : Posição da senha) -> ", aux->username, aux->hashSenha);
             aux = aux->prox;
         }
 
