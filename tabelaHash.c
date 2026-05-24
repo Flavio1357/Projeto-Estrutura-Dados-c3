@@ -220,7 +220,7 @@ void liberaHash(TabelaHash th){
 void imprimeHash(TabelaHash th){
 
     if(th == NULL){
-        printf("Não existe tabela!\n");
+        printf("Nao existe tabela!\n");
         return;
     }
     
@@ -229,7 +229,7 @@ void imprimeHash(TabelaHash th){
         printf("[%d]: ", i);
         
         while(aux != NULL){
-            printf("(%s | %d : Posição da senha) -> ", aux->username, aux->hashSenha);
+            printf("(%s | %d : Posicao da senha) -> ", aux->username, aux->hashSenha);
             aux = aux->prox;
         }
 
